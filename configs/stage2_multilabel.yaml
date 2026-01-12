@@ -1,13 +1,42 @@
-dataset:
-  name: "stage2"
-  images_dir: "data/stage2/images"
-  csv: "data/stage2/labels.csv"
+stage: stage2_multilabel
 
-training:
-  epochs: 30
-  batch_size: 24
-  lr: 1e-4
+data:
+  train_csv: labels/stage2_train.csv
+  val_csv: labels/stage2_val.csv
+  img_dir_train: images/train
+  img_dir_val: images/val
+  image_id_col: image_id
+  label_cols:
+    - wrinkle
+    - pillow_misaligned
+    - object_on_bed
 
 model:
-  backbone: "resnet50"
-  num_labels: 5
+  backbone: tf_efficientnet_b0   # or resnet18 / resnet50
+  img_size: 224
+  num_labels: 3
+  pretrained: true
+  dropout: 0.2
+
+train:
+  seed: 42
+  epochs: 20
+  batch_size: 32
+  lr: 0.0003
+  weight_decay: 0.01
+  num_workers: 2
+  mixed_precision: true
+
+loss:
+  pos_weight: null   # optionally [w1, w2, w3] for imbalance
+
+augment:
+  preset: stage2_safe
+  enabled: true
+
+eval:
+  primary_metric: map
+  secondary_metric: macro_f1
+
+output:
+  best_ckpt_name: best_stage2.pt
