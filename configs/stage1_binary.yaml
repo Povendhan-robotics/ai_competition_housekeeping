@@ -1,13 +1,36 @@
-dataset:
-  name: "stage1"
-  images_dir: "data/stage1/images"
-  csv: "data/stage1/labels.csv"
+stage: stage1_binary
 
-training:
-  epochs: 20
-  batch_size: 32
-  lr: 1e-3
+data:
+  train_csv: labels/stage1_train.csv
+  val_csv: labels/stage1_val.csv
+  img_dir_train: images/train
+  img_dir_val: images/val
+  image_id_col: image_id
+  label_col: label          # 1 = made/acceptable, 0 = not acceptable
 
 model:
-  backbone: "resnet18"
+  backbone: tf_efficientnet_b0
+  img_size: 224
   num_classes: 2
+  pretrained: true
+  dropout: 0.2
+
+train:
+  seed: 42
+  batch_size: 32
+  epochs: 10
+  lr: 0.0003
+  weight_decay: 0.01
+  num_workers: 2
+  mixed_precision: true
+
+augment:
+  preset: stage1_safe
+  enabled: true
+
+eval:
+  primary_metric: macro_f1
+  secondary_metric: accuracy
+
+output:
+  best_ckpt_name: best_stage1.pt

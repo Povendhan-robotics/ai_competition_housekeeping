@@ -1,10 +1,10 @@
-torch
-torchvision
 numpy
 pandas
-pyyaml
-scikit-learn
-opencv-python
-matplotlib
-albumentations
 tqdm
+opencv-python
+scikit-learn
+PyYAML
+matplotlib
+timm
+albumentations
+torchmetrics

@@ -1,13 +1,14 @@
-"""Basic metrics: accuracy, macro F1, mAP placeholder."""
-from sklearn.metrics import accuracy_score, f1_score
+from __future__ import annotations
+
+from typing import Tuple
 import numpy as np
+from sklearn.metrics import f1_score, accuracy_score
 
-def accuracy(y_true, y_pred):
-    return accuracy_score(y_true, y_pred)
 
-def macro_f1(y_true, y_pred):
-    return f1_score(y_true, y_pred, average='macro')
-
-def map_per_label(y_true, y_scores):
-    # Placeholder that returns zeros; implement with sklearn/torchmetrics when needed
-    return np.zeros(y_scores.shape[1])
+def compute_binary_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> Tuple[float, float]:
+    """
+    Returns: (macro_f1, accuracy)
+    """
+    macro_f1 = float(f1_score(y_true, y_pred, average="macro"))
+    acc = float(accuracy_score(y_true, y_pred))
+    return macro_f1, acc
