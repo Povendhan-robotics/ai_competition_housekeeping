@@ -1,5 +1,14 @@
-# Stage 4 Alignment To-dos
+# Stage 4 (Alignment pass/fail) — Ideas to Improve
 
-- Implement geometry-based edge/line matching baseline
-- Optionally add keypoint matching and RANSAC
-- Provide pass/fail threshold tuning
+Beginner:
+- Tune symmetry_threshold in config
+- Try different Canny thresholds
+
+Intermediate:
+- Crop ROI to bed region before computing symmetry
+- Use Hough lines to estimate bed axis and compare pillow axis
+
+Advanced:
+- Segment bed + pillow (classical or ML) and compute geometric alignment
+- Keypoint approach: detect corners/edges and compute angle/offset
+- Train a small model for alignment_pass and compare with geometry baseline

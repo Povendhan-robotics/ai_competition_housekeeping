@@ -1,8 +1,22 @@
-dataset:
-  name: "stage4"
-  images_dir: "data/stage4/images"
-  csv: "data/stage4/labels.csv"
+stage: stage4_alignment
 
-alignment:
-  method: "geometry"
-  threshold: 0.05
+data:
+  val_csv: labels/stage4_val.csv
+  img_dir_val: images/val
+  image_id_col: image_id
+  label_col: alignment_pass
+
+method:
+  name: geometry_baseline
+  params:
+    resize: 512
+    edge_thresh1: 50
+    edge_thresh2: 150
+    symmetry_threshold: 0.55   # tune this on val if needed
+
+eval:
+  primary_metric: accuracy
+  secondary_metric: macro_f1
+
+output:
+  run_dir: runs/stage4_alignment
