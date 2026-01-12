@@ -1,0 +1,36 @@
+stage: stage3_weak_cam
+
+data:
+  # where to read images from (for visualization)
+  img_dir: images/val   # or images/test
+  # OPTIONAL: if you have GT points for evaluation:
+  # CSV columns required: image_id,x,y
+  points_csv: null      # e.g. labels/stage3_points_val.csv
+  image_id_col: image_id
+  x_col: x
+  y_col: y
+
+model:
+  # Use an existing trained checkpoint from Stage 1 or Stage 2
+  task: stage2_multilabel      # stage1_binary OR stage2_multilabel
+  config_path: configs/stage2_multilabel.yaml
+  ckpt_path: runs/stage2_multilabel/best_stage2.pt
+
+target:
+  # For stage1_binary: class_index=1 means "made/acceptable"
+  # For stage2_multilabel: label_index selects defect to localize
+  # wrinkle=0, pillow_misaligned=1, object_on_bed=2
+  label_index: 0
+
+cam:
+  method: gradcam
+  # If null, we auto-detect the last Conv2d layer.
+  target_layer: null
+  input_size: 224
+
+output:
+  out_dir: runs/stage3_weak_cam
+  save_heatmaps: true          # saves grayscale heatmap png
+  save_overlays: true          # saves overlay on original image
+  overlay_alpha: 0.45
+  max_images: 500              # safety cap for test runs
