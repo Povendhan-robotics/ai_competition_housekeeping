@@ -1,0 +1,13 @@
+dataset:
+  name: "stage2"
+  images_dir: "data/stage2/images"
+  csv: "data/stage2/labels.csv"
+
+training:
+  epochs: 30
+  batch_size: 24
+  lr: 1e-4
+
+model:
+  backbone: "resnet50"
+  num_labels: 5

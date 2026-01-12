@@ -1,0 +1,3 @@
+id,alignment_score,pass
+sample_0001,0.012,True
+sample_0002,0.080,False

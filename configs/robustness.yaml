@@ -1,0 +1,9 @@
+corruptions:
+  - name: brightness
+    magnitudes: [0.2, 0.5]
+  - name: gaussian_noise
+    magnitudes: [0.02, 0.05]
+
+run:
+  batch_size: 32
+  seeds: [42]

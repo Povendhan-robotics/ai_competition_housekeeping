@@ -1,0 +1,8 @@
+dataset:
+  name: "stage4"
+  images_dir: "data/stage4/images"
+  csv: "data/stage4/labels.csv"
+
+alignment:
+  method: "geometry"
+  threshold: 0.05

@@ -1,0 +1,2 @@
+def infer():
+    raise NotImplementedError

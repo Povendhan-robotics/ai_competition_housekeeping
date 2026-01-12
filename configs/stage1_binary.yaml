@@ -1,0 +1,13 @@
+dataset:
+  name: "stage1"
+  images_dir: "data/stage1/images"
+  csv: "data/stage1/labels.csv"
+
+training:
+  epochs: 20
+  batch_size: 32
+  lr: 1e-3
+
+model:
+  backbone: "resnet18"
+  num_classes: 2
