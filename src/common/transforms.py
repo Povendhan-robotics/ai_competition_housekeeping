@@ -13,7 +13,6 @@ class TransformSpec:
 
 
 def get_train_transforms(preset: str, img_size: int) -> A.Compose:
-    # "Safe" augmentations that preserve label meaning for QC
     if preset == "stage1_safe":
         return A.Compose(
             [
@@ -30,9 +29,24 @@ def get_train_transforms(preset: str, img_size: int) -> A.Compose:
             ]
         )
 
-    # fallback: minimal
-    return A.Compose([A.Resize(img_size, img_size), A.Normalize(), ToTensorV2()])
+    # Slightly gentler than stage1 (defects can be subtle)
+    if preset == "stage2_safe":
+        return A.Compose(
+            [
+                A.Resize(img_size, img_size),
+                A.HorizontalFlip(p=0.5),
+                A.RandomBrightnessContrast(p=0.25),
+                A.GaussianBlur(blur_limit=(3, 5), p=0.10),
+                A.ShiftScaleRotate(
+                    shift_limit=0.015, scale_limit=0.04, rotate_limit=4,
+                    border_mode=0, p=0.25
+                ),
+                A.Normalize(),
+                ToTensorV2(),
+            ]
+        )
 
+    return A.Compose([A.Resize(img_size, img_size), A.Normalize(), ToTensorV2()])
 
 def get_eval_transforms(img_size: int) -> A.Compose:
     return A.Compose([A.Resize(img_size, img_size), A.Normalize(), ToTensorV2()])
