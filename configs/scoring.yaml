@@ -1,6 +1,0 @@
-weights:
-  stage1: 0.4
-  stage2: 0.4
-  stage4: 0.2
-
-tiebreaker: "stage2_macroF1"
