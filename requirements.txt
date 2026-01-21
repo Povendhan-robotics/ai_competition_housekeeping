@@ -9,3 +9,6 @@ timm
 albumentations
 torchmetrics
 grad-cam
+roboflow
+torch 
+torchvision
